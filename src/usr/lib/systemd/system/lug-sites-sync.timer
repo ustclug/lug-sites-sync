@@ -1,0 +1,10 @@
+[Unit]
+Description=LUG@USTC Sites Sync Service Timer
+
+[Install]
+WantedBy=multi-user.target
+
+[Timer]
+OnCalendar=daily
+AccuracySec=12h
+Persistent=true

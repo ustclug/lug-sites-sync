@@ -1,0 +1,3 @@
+4be0f14db986266a23d1864dcd216965  usr/bin/pull-once.sh
+3225206ea9339bd742deb67738acf904  usr/lib/systemd/system/lug-sites-sync.service
+144aa605b0211614613fd90a8c39309f  usr/lib/systemd/system/lug-sites-sync.timer

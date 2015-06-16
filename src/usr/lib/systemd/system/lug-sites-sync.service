@@ -1,0 +1,11 @@
+[Unit]
+Description=LUG@USTC Sites Sync Service
+After=network.target
+Documentation=https://lug.ustc.edu.cn/wiki/serveradm/lug
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pull-once.sh
+
+[Install]
+WantedBy=multi-user.target
