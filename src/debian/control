@@ -1,0 +1,12 @@
+Source: lug-sites-sync
+Section: utils
+Priority: extra
+Maintainer: Boyuan Yang <073plan@gmail.com>
+Build-Depends: 
+Standards-Version: 0.5.0-5
+Homepage: https://lug.ustc.edu.cn/wiki/serveradm/lug/start
+
+Package: lug-sites-sync
+Architecture: all
+Depends: git (>= 2.0.0), dash, systemd (>= 208)
+Description: scripts and systemd config files to sync sites webpages on LUG@USTC mainpage server

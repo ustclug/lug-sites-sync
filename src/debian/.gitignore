@@ -1,0 +1,4 @@
+*.log
+files
+substvars
+tmp/
