@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = "remove" -o "$1" = "deconfigure" ]; then
+    systemctl stop lug-sites-sync.timer
+    systemctl stop lug-sites-sync.service
+    systemctl disable lug-sites-sync.timer
+    systemctl disable lug-sites-sync.service
+fi

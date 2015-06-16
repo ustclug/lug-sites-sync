@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+if [ "$1" = "configure" ] || [ "x$1" = "install" ]; then
+    systemctl enable lug-sites-sync.service
+    systemctl enable lug-sites-sync.timer
+    systemctl start lug-sites-sync.timer
+    echo "Service enabled."
+fi

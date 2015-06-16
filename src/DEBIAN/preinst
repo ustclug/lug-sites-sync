@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = "upgrade" ] || [ "$1" = "install" ]; then
+    systemctl stop lug-sites-sync.service 2> /dev/null
+    systemctl stop lug-sites-sync.timer 2> /dev/null
+    systemctl disable lug-sites-sync.service 2> /dev/null
+    systemctl disable lug-sites-sync.timer 2> /dev/null
+fi
