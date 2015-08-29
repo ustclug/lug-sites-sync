@@ -1,35 +1,20 @@
 #!/bin/sh
-# -*- coding: utf-8 -*-
-# pull script for https://lug.ustc.edu.cn/sites.
-# author: hosiet
 
 # variables
+readonly OPENSUSE_GUIDE_WEBSITE="https://gitcafe.com/winland0704/opensuse-guide.git"
+readonly OPENSUSE_GUIDE_PATH="/var/www/sites/opensuse-guide/"
+readonly QTGUIDE_WEBSITE="https://git.oschina.net/qtguide/qtguide.git"
+readonly QTGUIDE_PATH="/var/www/sites/qtguide/"
 
-OPENSUSE_GUIDE_WEBSITE="https://gitcafe.com/winland0704/opensuse-guide.git"
-QTGUIDE_WEBSITE="https://git.oschina.net/qtguide/qtguide.git"
-
-OPENSUSE_GUIDE_PATH="/var/www/sites/opensuse-guide/"
-QTGUIDE_PATH="/var/www/sites/qtguide/"
-
-# Check whether this script is run as root.
-check_privilege()
+# Check whether this script is run as www-data.
+check_user()
 {
-    if [ ! "x$(whoami)" = "xroot" ]; then
-        echo "not running as root."
+    if [ ! "x$(whoami)" = "xwww-data" ]; then
+        echo "not running as www-data." 1>&2
         return 1
     else
         return 0
     fi
-}
-
-post_pull_fail()
-{
-    return
-}
-
-post_pull_success()
-{
-    return
 }
 
 # Process pull
@@ -55,6 +40,9 @@ main_procedure()
     if [ ! check_privilege ]; then
         return 1
     fi
+
+    local result1
+    local result2
 
     process_pull ${QTGUIDE_PATH} "qtguide"
     result1=$?
