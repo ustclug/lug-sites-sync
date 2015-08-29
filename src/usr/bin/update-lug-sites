@@ -1,0 +1,81 @@
+#!/bin/sh
+# -*- coding: utf-8 -*-
+
+# update-lug-sites -- a script for project lug-sites-sync
+#
+# Copyright (c) 2015 Linux User Group, University of Science and Technology of China
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+###############################################################################
+
+# variables
+readonly OPENSUSE_GUIDE_WEBSITE="https://gitcafe.com/winland0704/opensuse-guide.git"
+readonly OPENSUSE_GUIDE_PATH="/var/www/sites/opensuse-guide/"
+readonly QTGUIDE_WEBSITE="https://git.oschina.net/qtguide/qtguide.git"
+readonly QTGUIDE_PATH="/var/www/sites/qtguide/"
+
+readonly ULS_VALID_USER="www-data"
+
+# Check whether this script is run as www-data.
+check_user() {
+    if [ ! "x$(whoami)" = "x$ULS_VALID_USER" ]; then
+        echo "This script should be run as $ULS_VALID_USER." 1>&2
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Process pull
+# $1 is PATH and $2 is name
+process_pull() {
+    cd $1
+    git pull --verbose --ff --all --force
+    if [ ! "x$?" = "x0" ]; then
+        echo "Error happened while updating $2" 1>&2
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Main procedure.
+main_procedure() {
+    if [ ! check_privilege ]; then
+        return 1
+    fi
+
+    local result1
+    local result2
+
+    process_pull ${QTGUIDE_PATH} "qtguide"
+    result1=$?
+    process_pull ${OPENSUSE_GUIDE_PATH} "opensuse-guide"
+    result2=$?
+
+    if test "x${result1}" = "x0" -a "x${result2}" = "x0"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# main
+main_procedure

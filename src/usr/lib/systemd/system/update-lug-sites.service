@@ -5,7 +5,8 @@ Documentation=https://lug.ustc.edu.cn/wiki/serveradm/lug
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/pull-once.sh
+ExecStart=/usr/bin/update-lug-sites
+User=www-data
 
 [Install]
 WantedBy=multi-user.target
