@@ -1,5 +1,5 @@
 *.log
 files
-substvars
+*.substvars
 tmp/
 lug-sites-sync/
